@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------
+   GLOBAL STYLES
+-------------------------------------- */
+body {
+  @apply bg-vscodeBg text-vscodeText font-code;
+  scroll-behavior: smooth;
+}
+
+/* -------------------------------------
+   TWEMOJI STYLING
+-------------------------------------- */
+.twemoji img {
+  height: 1.2em;
+  width: 1.2em;
+  vertical-align: middle;
+  display: inline;
+  margin-right: 0.25rem;
+}
+
+/* -------------------------------------
+   FLICKER ANIMATION (used in Hero)
+-------------------------------------- */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.92; }
+  55% { opacity: 1; }
+  60% { opacity: 0.85; }
+}
+
+.animate-flicker {
+  animation: flicker 2.5s infinite;
+}
+
+/* -------------------------------------
+   BUTTON HOVER TRANSITIONS
+-------------------------------------- */
+.button-bounce {
+  transition: transform 0.15s ease-in-out;
+}
+
+.button-bounce:hover {
+  transform: scale(1.05);
+}
