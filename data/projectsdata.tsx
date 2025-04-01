@@ -39,8 +39,8 @@ export interface Project {
           "Order management dashboard",
           "Customer analytics",
         ],
-        demoLink: "#",
-        githubLink: "#",
+        demoLink: "https://nextenti-frontend.onrender.com/",
+        githubLink: "https://github.com/dhanvanth342/CareerAI",
       },
       {
         id: 2,
