@@ -16,10 +16,10 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <TechStack />
         <Experience />
-        <Education />
         <Projects />
+        <Education />
+        <TechStack />
         <AskMeAnything />
         <Contact />
         <Footer />

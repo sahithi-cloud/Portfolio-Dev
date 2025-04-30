@@ -1,186 +1,233 @@
-// This will be a modular, styled, responsive VS Code-themed TechStack component
-// Components: TechStack (main), TechCard, SkillBar, SkillRadarModal (already exists as SkillsRadar)
-
 "use client"
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Code2, Layout, Server, Database, Wrench, Binary, ActivitySquare } from "lucide-react"
-import SkillsRadar from "@/components/skills-radar"
-import { Button } from "./ui/button"
-
-const categories = {
-  languages: {
-    icon: <Code2 className="h-5 w-5 text-vscodeBlue" />,
-    title: "Programming Languages",
-    skills: [
-      { name: "C++", level: 90 },
-      { name: "C", level: 55 },
-      { name: "JavaScript", level: 90 },
-      { name: "Java", level: 88 },
-      { name: "Python", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Ruby", level: 40 },
-    ],
-  },
-  concepts: {
-    icon: <Binary className="h-5 w-5 text-vscodeYellow" />,
-    title: "Engineering Concepts",
-    skills: [
-      { name: "Data Structures", level: 95 },
-      { name: "Algorithms", level: 90 },
-      { name: "OOP", level: 95 },
-      { name: "Design Patterns", level: 85 },
-      { name: "System Design", level: 80 },
-      { name: "Multithreading", level: 85 },
-    ],
-  },
-  frontend: {
-    icon: <Layout className="h-5 w-5 text-vscodePurple" />,
-    title: "Full Stack",
-    skills: [
-      { name: "React", level: 90 },
-      { name: "Next.js", level: 85 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "Redux", level: 85 },
-      { name: "Three.js", level: 75 },
-      { name: "Node.js", level: 85 },
-      { name: "Express", level: 80 },
-      { name: "Spring Boot", level: 85 },
-      { name: "Ruby on Rails", level: 80 },
-    ],
-  },
-  backend: {
-    icon: <Server className="h-5 w-5 text-vscodeRed" />,
-    title: "Data Analytics",
-    skills: [
-      { name: "R", level: 85 },
-      { name: "ETL", level: 80 },
-      { name: "Power BI", level: 90 },
-      { name: "Tableau", level: 85 },
-      { name: "Google Analytics", level: 90 },
-      { name: "Excel", level: 90 },
-    ],
-  },
-  database: {
-    icon: <Database className="h-5 w-5 text-vscodeGreen" />,
-    title: "Database Systems",
-    skills: [
-      { name: "MongoDB", level: 85 },
-      { name: "PostgreSQL", level: 80 },
-      { name: "MySQL", level: 75 },
-      { name: "Redis", level: 25 },
-    ],
-  },
-  tools: {
-    icon: <Wrench className="h-5 w-5 text-vscodeText" />,
-    title: "Development Tools",
-    skills: [
-      { name: "Git", level: 90 },
-      { name: "Docker", level: 80 },
-      { name: "AWS", level: 80 },
-      { name: "Postman", level: 75 },
-      { name: "Figma", level: 80 },
-      { name: "Firebase", level: 95 },
-      { name: "Wordpress", level: 95 },
-      { name: "Adobe Illustrator", level: 75 },
-      { name: "Visual Studio", level: 85 },
-      { name: "Canva", level: 95 },
-    ],
-  },
-}
+import SkillsRadar from "./skills-radar"
+import Image from "next/image"
 
 export default function TechStack() {
-  const [expanded, setExpanded] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [showRadar, setShowRadar] = useState<string | null>(null)
 
+  const technologies = {
+    languages: {
+      icon: <Code2 className="h-6 w-6" />,
+      title: "Programming Languages",
+      description: "Core languages for systems and application development",
+      skills: [
+        { name: "C++", level: 90, image: "/C++.png" },
+        { name: "JavaScript", level: 90, image: "/JavaScript.png" },
+        { name: "Java", level: 88, image: "/Java.png" },
+        { name: "Python", level: 95, image: "/Python.png" },
+        { name: "TypeScript", level: 90, image: "/Typescript.png" },
+      ],
+    },
+    concepts: {
+      icon: <Binary className="h-6 w-6" />,
+      title: "Engineering Concepts",
+      description: "Fundamental software engineering principles",
+      skills: [
+        { name: "Data Structures", level: 95, image: "/dsa.png" },
+        { name: "OOP", level: 95, image: "/oop.png" },
+        { name: "Multithreading", level: 85, image: "/multi.png" },
+      ],
+    },
+    frontend: {
+      icon: <Layout className="h-6 w-6" />,
+      title: "Full Stack",
+      description: "Modern web development technologies",
+      skills: [
+        { name: "React", level: 90, image: "/React.png" },
+        { name: "Next.js", level: 85, image: "/Next.js.png" },
+        { name: "HTML5", level: 95, image: "/HTML5.png" },
+        { name: "CSS3", level: 95, image: "/CSS3.png" },
+        { name: "Tailwind", level: 95, image: "/Tailwind CSS.png" },
+        { name: "Redux", level: 85, image: "/Redux.png" },
+        { name: "Three.js", level: 75, image: "/Three.js.png" },
+        { name: "Node.js", level: 85, image: "/Node.js.png" },
+        { name: "Express", level: 80, image: "/Express.png" },
+      ],
+    },
+    backend: {
+      icon: <Server className="h-6 w-6" />,
+      title: "Data Analytics",
+      description: "Server-side frameworks and technologies",
+      skills: [
+        { name: "R", level: 85, image: "/R.png" },
+        { name: "ETL", level: 80, image: "/ETL.png" },
+        { name: "Power BI", level: 90, image: "/powerbi.png" },
+        { name: "Tableau", level: 85, image: "/Tableau.png" },
+        { name: "Google Analytics", level: 90, image: "/GoogleA.png" },
+        { name: "Excel", level: 90, image: "/Excel.png" },
+      ],
+    },
+    database: {
+      icon: <Database className="h-6 w-6" />,
+      title: "Database Systems",
+      description: "Database management and optimization",
+      skills: [
+        { name: "MongoDB", level: 85, image: "/MongoDB.png" },
+        { name: "PostgreSQL", level: 80, image: "/PostgresSQL.png" },
+        { name: "SQL", level: 75, image: "/SQL Developer.png" },
+      ],
+    },
+    tools: {
+      icon: <Wrench className="h-6 w-6" />,
+      title: "Development Tools",
+      description: "Tools and environments for development",
+      skills: [
+        { name: "Git", level: 90, image: "/Git.png" },
+        { name: "Docker", level: 80, image: "/Docker.png" },
+        {name : "Github", level: 90, image: "/GitHub.png"},
+        { name: "AWS", level: 80, image: "/Aws.png" },
+        { name: "Postman", level: 75, image: "/Postman.png" },
+        { name: "Figma", level: 80, image: "/Figma.png" },
+        { name: "Firebase", level: 95, image: "/Firebase.png" },
+        { name: "WordPress", level: 95, image: "/Wordpress.png" },
+        { name: "Adobe Illustrator", level: 75, image: "/Adobe Illustrator.png" },
+        { name: "Canva", level: 95, image: "/Canva.png" },
+      ],
+    },
+  }
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+
+  const scaleUp = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1 },
+  }
+
   return (
-    <section id="tech-stack" className="bg-vscodeBg text-vscodeText font-code py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-vscodeBlue">
-          // tech-stack.ts
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(categories).map(([key, { icon, title, skills }]) => (
+    <section id="tech-stack" className="py-20">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          variants={fadeIn}
+          className="text-center mb-16"
+        >
+          <Badge variant="outline" className="mb-4">Skills</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Technical Expertise</h2>
+          <div className="w-20 h-1 bg-primary mx-auto"></div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(technologies).map(([key, category]) => (
             <motion.div
               key={key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-[#1e1e1e] p-4 rounded-md border border-vscodeText/10 shadow-sm hover:shadow-md transition"
+              variants={scaleUp}
             >
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                  {icon}
-                  <h3 className="text-lg font-semibold text-vscodeText">{title}</h3>
-                </div>
-                <Button
-                  onClick={() => setShowRadar(key === showRadar ? null : key)}
-                  className="hover:text-vscodeGreen"
-                >
-                  <ActivitySquare className="w-4 h-4" />
-                </Button>
-              </div>
-
-              <AnimatePresence>
-                {expanded === key ? (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="space-y-4"
-                  >
-                    {skills.map((skill, idx) => (
-                      <div key={idx} className="text-sm">
-                        <div className="flex justify-between">
-                          <span>{skill.name}</span>
-                          <span>{skill.level}%</span>
-                        </div>
-                        <div className="w-full bg-[#333] h-1.5 rounded-full">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${skill.level}%` }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="h-1.5 rounded-full bg-vscodeBlue"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </motion.div>
-                ) : (
-                  <div className="flex flex-wrap gap-2">
-                    {skills.slice(0, 3).map((s, i) => (
-                      <span key={i} className="px-2 py-0.5 text-xs bg-vscodeBlue/10 text-vscodeText rounded">
-                        {s.name}
-                      </span>
-                    ))}
-                    {skills.length > 3 && (
-                      <span className="text-xs text-vscodeText/60">+{skills.length - 3} more</span>
-                    )}
-                  </div>
-                )}
-              </AnimatePresence>
-
-              <button
-                className="mt-4 text-xs text-vscodeGreen hover:underline"
-                onClick={() => setExpanded(expanded === key ? null : key)}
+              <Card
+                className={`h-full cursor-pointer transition-all duration-300 hover:shadow-lg relative ${
+                  selectedCategory === key ? "ring-2 ring-primary" : ""
+                }`}
+                onClick={() => setSelectedCategory(selectedCategory === key ? null : key)}
               >
-                {expanded === key ? "Hide details" : "View details"}
-              </button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="absolute top-4 right-4 h-7 px-3 rounded-full text-xs z-10 hover:bg-primary hover:text-primary-foreground transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowRadar(showRadar === key ? null : key)
+                  }}
+                >
+                  <ActivitySquare className="h-4 w-4" />
+                </Button>
 
-              {showRadar === key && (
-                <SkillsRadar
-                  skills={skills}
-                  title={title}
-                  onClose={() => setShowRadar(null)}
-                />
-              )}
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-primary/10 p-3 rounded-full">{category.icon}</div>
+                    <div>
+                      <h3 className="text-lg font-semibold">{category.title}</h3>
+                      <p className="text-sm text-muted-foreground">{category.description}</p>
+                    </div>
+                  </div>
+
+                  <AnimatePresence>
+                    {selectedCategory === key && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-4"
+                      >
+                        <div className="flex flex-wrap justify-start gap-4">
+                          {category.skills.map((skill, i) => (
+                            <div key={i} className="flex flex-col items-center w-20">
+                              <Image
+                                src={skill.image!}
+                                alt={skill.name}
+                                width={40}
+                                height={40}
+                                className="rounded mb-1 transition-transform duration-300 ease-in-out hover:scale-125"
+                              />
+                              <span className="text-xs sm:text-sm text-center font-medium">
+                                {skill.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {selectedCategory !== key && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {category.skills.slice(0, 3).map((skill, i) => (
+                        <Badge key={i} variant="secondary">{skill.name}</Badge>
+                      ))}
+                      {category.skills.length > 3 && (
+                        <Badge variant="secondary">
+                          +{category.skills.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+
+                <AnimatePresence>
+                  {showRadar === key && (
+                    <SkillsRadar
+                      skills={category.skills.filter((s): s is { name: string; level: number; image:null } => "level" in s)}
+                      title={category.title}
+                      onClose={() => setShowRadar(null)}
+                    />
+                  )}
+                </AnimatePresence>
+              </Card>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          variants={fadeIn}
+          className="mt-12 text-center text-muted-foreground"
+        >
+          <p className="max-w-2xl mx-auto">
+            With extensive experience in both low-level systems programming and modern web development, I bring a
+            comprehensive understanding of software engineering principles to every project.
+          </p>
+        </motion.div>
       </div>
     </section>
-  )
+  )
 }
