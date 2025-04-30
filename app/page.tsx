@@ -7,7 +7,7 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import AskMeAnything from "@/components/AskmeAnything";
+import AskMeAnything from "@/components/AskMeAnything";
 
 export default function Home() {
   return (

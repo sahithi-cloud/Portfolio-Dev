@@ -66,7 +66,7 @@ export default function SkillsRadar({ skills, title, onClose }: SkillsRadarProps
                   <PolarGrid stroke="#444" />
                   <PolarAngleAxis
                     dataKey="name"
-                    tick={{ fill: "#ccc", fontSize: 12, wordBreak: 'break-word' }}
+                    tick={{ fill: "#ccc", fontSize: 12 }}
                     stroke="#555"
                   />
                   <PolarRadiusAxis
