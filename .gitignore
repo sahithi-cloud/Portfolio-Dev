@@ -1,4 +1,3 @@
-
 # dependencies
 /node_modules
 /.pnp
@@ -10,26 +9,31 @@
 # next.js
 .next/
 /out/
-
-# production
 /build
+.turbo/
+
+# local env
+.env
+.env*.local
+
+# IDE & OS
+.DS_Store
+.vscode/
+.idea/
 
 # misc
-.DS_Store
 *.pem
+*.tsbuildinfo
+next-env.d.ts
 
-# debug
+# debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env
-.env*.local
+# editor/merge leftovers
+*.orig
+*.swp
 
 # vercel
 .vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
