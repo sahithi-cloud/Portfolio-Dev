@@ -22,7 +22,7 @@ export default function Home() {
         <TechStack />
         <AskMeAnything />
         <Contact />
-        <Footer />
+        <Footer /> {/* Add the Footer component here */}
       </main>
       
     </div>
