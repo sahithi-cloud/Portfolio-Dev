@@ -17,7 +17,7 @@ export default function TechStack() {
     languages: {
       icon: <Code2 className="h-6 w-6" />,
       title: "Programming Languages",
-      description: "Core languages for systems and application development",
+      description: "Core languages for systems and application development", /*adding images*/
       skills: [
         { name: "C++", level: 90, image: "/C++.png" },
         { name: "JavaScript", level: 90, image: "/JavaScript.png" },
